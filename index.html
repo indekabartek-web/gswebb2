@@ -291,17 +291,54 @@
         }
 
         @media (max-width: 768px) {
+            /* Wyłączamy kursor - na dotyku tylko przeszkadza */
             .cursor-wrapper { display: none !important; }
             body { cursor: auto !important; }
+
+            /* Nawigacja: Mobilny minimalizm */
+            .navbar { padding: 1rem 0; }
             .nav-desktop { display: none !important; }
-            .bento-grid { grid-template-columns: 1fr !important; }
-            .bento-span-2, .bento-span-3 { grid-column: span 1 !important; }
-            .work-section { height: auto !important; overflow: visible !important; padding: 4rem 0 !important; }
-            .work-track { flex-direction: column !important; width: 100% !important; height: auto !important; padding: 0 var(--padding-x) !important; transform: none !important; }
-            .project-slide { width: 100% !important; height: 480px !important; margin-bottom: 2rem !important; }
-            .text-display-giant { font-size: 3.8rem !important; }
-            .section-padding { padding: 5rem 0 !important; }
+            .btn-outline { padding: 0.6rem 1.2rem; font-size: 0.7rem; }
+
+            /* Typografia: Czytelność ponad wszystko */
+            .text-display-giant { font-size: 3.2rem !important; line-height: 1.1; }
+            .text-display { font-size: 2.5rem !important; }
+            .text-h2 { font-size: 2.2rem !important; }
+            
+            /* Bento Grid: Wszystko w jedną kolumnę */
+            .bento-grid { grid-template-columns: 1fr !important; gap: 1rem; }
+            .bento-span-2, .bento-span-3, .bento-row-2 { grid-column: span 1 !important; grid-row: span 1 !important; }
+            .bento-item { padding: 2rem !important; }
+
+            /* SEKCOJA REALIZACJI: Zamiana poziomu na pion */
+            .work-section { height: auto !important; overflow: visible !important; padding: 100px 0 !important; }
+            .work-track { 
+                flex-direction: column !important; 
+                width: 100% !important; 
+                height: auto !important; 
+                padding: 0 var(--padding-x) !important; 
+                transform: none !important; /* Wyłączamy przesuwanie przez GSAP */
+                gap: 2rem;
+                margin-top: 120px; /* Miejsce na nagłówek "Portfolio" */
+            }
+            .project-slide { 
+                width: 100% !important; 
+                height: auto !important; 
+                aspect-ratio: 16/9; 
+                margin-right: 0 !important; 
+            }
+            
+            /* Napis "Portfolio" na telefonie musi być statyczny */
+            #work .container { 
+                position: relative !important; 
+                top: 0 !important; 
+                margin-bottom: 2rem;
+                pointer-events: auto !important;
+            }
+
+            /* Formularz i cennik */
             .contact-grid { grid-template-columns: 1fr !important; gap: 3rem !important; }
+            .pricing-card { padding: 2rem !important; }
         }
     </style>
 </head>
@@ -876,6 +913,13 @@
                 }
             `
         };
+        // Naprawa 100vh na telefonach
+        const fixFullHeight = () => {
+            let vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
+        };
+        window.addEventListener('resize', fixFullHeight);
+        fixFullHeight();
 
         /**
          * 3. FLUID BACKGROUND CLASS
@@ -1156,8 +1200,30 @@ class ProjectMesh {
                 this.fluidBg = new FluidBackground();
                 this.gallery = new GalleryEngine();
 
-                this.init();
-            }
+    this.init();
+}
+
+initHorizontalScroll() {
+    // To jest kluczowe: jeśli ekran jest wąski, nie aktywujemy scrolla poziomego
+    if (window.innerWidth <= 768) return; 
+
+    const track = document.getElementById('work-track');
+    const workSection = document.getElementById('work');
+    const scrollDistance = track.scrollWidth - window.innerWidth;
+
+    gsap.to(track, {
+        x: () => -scrollDistance,
+        ease: "none",
+        scrollTrigger: {
+            trigger: workSection,
+            pin: true,
+            scrub: 1,
+            start: "top top",
+            end: () => `+=${scrollDistance}`,
+            invalidateOnRefresh: true
+        }
+    });
+}
 
             init() {
                 this.initSmoothScroll();
