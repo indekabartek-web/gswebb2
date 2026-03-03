@@ -451,6 +451,60 @@
             /* Formularz i cennik */
             .contact-grid { grid-template-columns: 1fr !important; gap: 3rem !important; }
             .pricing-card { padding: 2rem !important; }
+            /* 1. NAPRAWA NAGŁÓWKA PORTFOLIO (WYŚRODKOWANIE) */
+            #work .container > div[style*="display: flex"] {
+                flex-direction: column !important;
+                align-items: center !important;
+                text-align: center !important;
+                gap: 1.5rem;
+            }
+
+            #work .gs-reveal:last-child {
+                text-align: center !important;
+                max-width: 100% !important;
+                padding-bottom: 0 !important;
+            }
+
+            #work .gs-reveal:last-child p.text-body {
+                margin: 0 auto !important;
+                font-size: 0.9rem !important;
+                line-height: 1.6;
+            }
+
+            /* 2. NAPRAWA HERO (NACHODZENIE PRZYCISKÓW) */
+            #hero {
+                padding-top: 120px !important;
+                padding-bottom: 180px !important; /* Większy margines na dole dla wskaźnika scrolla */
+                min-height: 100vh !important;
+                display: flex;
+                align-items: center;
+            }
+
+            #hero [style*="margin-top: 3.5rem"] {
+                margin-top: 2rem !important;
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 2rem !important;
+            }
+
+            /* Ustawienie przycisków jeden pod drugim na małych ekranach */
+            #hero .btn {
+                width: 100% !important;
+                padding: 1.2rem !important;
+            }
+
+            #hero [style*="display: flex; gap: 2rem"] {
+                flex-direction: column !important;
+                gap: 1rem !important;
+                width: 100%;
+            }
+
+            /* Przesunięcie wskaźnika scrolla na sam dół, by nic na niego nie najechało */
+            #hero [style*="position: absolute; bottom: 5vh"] {
+                bottom: 2vh !important;
+                left: 50% !important;
+                transform: translateX(-50%) !important; /* Wyśrodkowanie wskaźnika na mobile */
+            }
         }
         
     </style>
