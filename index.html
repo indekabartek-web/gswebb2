@@ -504,35 +504,70 @@
                 bottom: 2vh !important;
                 left: 50% !important;
                 transform: translateX(-50%) !important; /* Wyśrodkowanie wskaźnika na mobile */
-                /* NAPRAWA SEKCJI HOSTING GRATIS (GIFT BOX) */
+                
+            }
+            /* 1. NAPRAWA PAKIETU PROFESSIONAL STORE (CENNIK) */
+            #services .bento-span-2.pricing-card > div[style*="grid-template-columns: 1fr 1fr"] {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 2rem !important;
+                height: auto !important;
+            }
+
+            .pricing-card .pricing-price {
+                font-size: 2.8rem !important; /* Zmniejszenie ceny, by nie rozpychała kafelka */
+                margin: 1rem 0 !important;
+            }
+
+            .pricing-list {
+                margin: 1.5rem 0 !important;
+                padding-left: 0 !important;
+            }
+
+            .pricing-list li {
+                font-size: 0.85rem !important;
+                line-height: 1.4 !important;
+                margin-bottom: 0.8rem !important;
+            }
+
+            /* 2. PERFEKCYJNE WYŚRODKOWANIE HOSTINGU GRATIS */
             #services .glass-panel[style*="margin-top: 3rem"] {
                 padding: 2.5rem 1.5rem !important;
-                margin-top: 2rem !important;
+                display: flex !important;
+                justify-content: center !important;
+                align-items: center !important;
             }
 
             #services .glass-panel[style*="margin-top: 3rem"] > div {
-                flex-direction: column !important; /* Układ pionowy */
-                gap: 2rem !important;
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important; /* Środek w poziomie */
+                justify-content: center !important; /* Środek w pionie */
                 text-align: center !important;
+                width: 100% !important;
+                gap: 1.5rem !important;
             }
 
             #services .glass-panel[style*="margin-top: 3rem"] div[style*="width: 120px"] {
-                width: 80px !important; /* Mniejsza ikona na mobile */
-                height: 80px !important;
-                font-size: 2.2rem !important;
-                margin: 0 auto !important;
+                width: 70px !important;
+                height: 70px !important;
+                min-width: 70px !important;
+                font-size: 2rem !important;
+                margin: 0 auto !important; /* Dodatkowy margines dla pewności */
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
             }
 
             #services .glass-panel[style*="margin-top: 3rem"] h3 {
-                font-size: 1.4rem !important;
-                line-height: 1.3 !important;
-                margin-bottom: 1rem !important;
+                font-size: 1.3rem !important;
+                margin-top: 0.5rem !important;
+                width: 100% !important;
             }
 
             #services .glass-panel[style*="margin-top: 3rem"] .text-body {
-                font-size: 0.9rem !important;
-                max-width: 100% !important;
-            }
+                margin: 0 auto !important;
+                width: 100% !important;
             }
         }
         
