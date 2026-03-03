@@ -181,6 +181,38 @@
         .bento-span-2 { grid-column: span 2; }
         .bento-span-3 { grid-column: span 3; }
         .bento-row-2 { grid-row: span 2; }
+        /* WZMOCNIENIE CZYTELNOŚCI BENTO */
+.bento-item h3 {
+    font-size: clamp(1.4rem, 2vw, 2rem); /* Dynamiczna wielkość */
+    color: #FFFFFF !important;
+    margin-bottom: 1rem;
+    z-index: 5;
+    position: relative;
+    opacity: 1 !important; /* Bezpiecznik widoczności */
+    word-break: keep-all;       /* Nie pozwól na rozrywanie słów */
+    overflow-wrap: normal;      /* Powrót do standardu */
+    hyphens: none !important;   /* Wyłącz autodywiz (kreski) */
+    /* DODATKOWE ZMNIEJSZENIE FONTU */
+    /* Zmniejszamy bazę z 1.2rem na 1.0rem, żeby "Optymalizacja" weszła w całości */
+    font-size: clamp(1rem, 2.2vw, 1.8rem) !important;
+    line-height: 1.1 !important;
+    
+    display: block;
+    width: 100%;
+    
+}
+
+.bento-item .text-body {
+    color: var(--color-text-secondary);
+    font-size: clamp(0.85rem, 1vw, 1rem);
+    line-height: 1.5;
+    opacity: 1 !important; /* Bezpiecznik widoczności */
+}
+
+/* Jeśli panel jest zbyt ciemny, rozjaśniamy tło szkła */
+.glass-panel {
+    background: rgba(255, 255, 255, 0.05) !important;
+}
 
         /* Animacja Liquid Blob (Orb) */
         .visual-container { 
@@ -290,7 +322,66 @@
             .bento-span-3 { grid-column: span 2; }
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 768px) {/* NAPRAWA SEKCJI FILOZOFIA (MANIFEST) */
+            #about .grid-12 {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 2rem !important;
+            }
+/* FIX DLA BENTO NA TELEFONIE */
+            .bento-grid {
+                gap: 1.5rem !important; /* Większe odstępy */
+            }
+
+            .bento-item {
+                padding: 2.5rem 1.5rem !important; /* Więcej miejsca w środku */
+                min-height: 250px !important; /* Wymuszamy wysokość, żeby tekst nie był ścisnięty */
+                justify-content: center !important;
+            }
+
+            .bento-item h3 {
+                font-size: 1.5rem !important;
+                text-align: left;
+            }
+
+            .bento-item .text-body {
+                font-size: 0.95rem !important;
+                color: #e2e8f0 !important; /* Jaśniejszy szary dla lepszego kontrastu */
+            }
+            #about [style*="grid-column: 5 / span 8"] {
+                width: 100% !important;
+            }
+
+            #about .text-h2 {
+                font-size: 1.7rem !important; /* Zmniejszamy nagłówek "Większość stron..." */
+                line-height: 1.3 !important;
+                margin-bottom: 2.5rem !important;
+                width: 100% !important;
+            }
+
+            /* NAPRAWA BLOKÓW: Estetyka Luksusu / Inżynieria Prędkości */
+            #about [style*="display: grid; grid-template-columns: 1fr 1fr"] {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 2.5rem !important;
+            }
+
+            #about h4 {
+                font-size: 1.1rem !important;
+                margin-bottom: 0.5rem !important;
+            }
+
+            #about .text-body {
+                font-size: 0.9rem !important;
+                max-width: 100% !important;
+            }
+
+            /* Dodatkowy reset kontenera, żeby nic nie wychodziło za ramki */
+            .container {
+                width: 100% !important;
+                padding: 0 1.5rem !important;
+                overflow-x: hidden !important;
+            }
             /* Wyłączamy kursor - na dotyku tylko przeszkadza */
             .cursor-wrapper { display: none !important; }
             body { cursor: auto !important; }
@@ -361,6 +452,7 @@
             .contact-grid { grid-template-columns: 1fr !important; gap: 3rem !important; }
             .pricing-card { padding: 2rem !important; }
         }
+        
     </style>
 </head>
 <body>
@@ -1062,7 +1154,11 @@ const GALLERY_SHADERS = {
          * 5. PROJECT MESH CLASS
          * Klasa mapująca pojedynczy kafelek HTML na obiekt WebGL.
          */
-class ProjectMesh {
+/**
+         * PANCERNY PROJECT MESH
+         * Obsługuje błędy ładowania zdjęć bez zawieszania strony.
+         */
+        class ProjectMesh {
             constructor(element, scene, textureLoader) {
                 this.element = element;
                 this.scene = scene;
@@ -1070,25 +1166,25 @@ class ProjectMesh {
                 this.isHovered = false;
                 this.hoverProgress = 0;
                 
-                // Bezpieczne ładowanie tekstury
+                // Fallback: pokaż zwykłe zdjęcie od razu
+                this.img.style.opacity = "1";
+                this.img.style.transition = "opacity 0.5s";
+
                 this.texture = textureLoader.load(this.img.src, 
-                    () => console.log(`Loaded: ${this.img.src}`),
+                    (tex) => {
+                        console.log("WebGL Texture OK:", this.img.src);
+                        this.img.style.opacity = "0"; // Ukryj HTML, użyj WebGL
+                    },
                     undefined,
-                    () => {
-                        console.warn("Błąd ładowania tekstury, używam fallbacku");
-                        this.img.style.opacity = "1"; // Pokaż zwykłe zdjęcie jeśli WebGL zawiedzie
-                    }
+                    () => console.warn("WebGL Fallback active for:", this.img.src)
                 );
-                
-                this.texture.minFilter = THREE.LinearFilter;
-                this.texture.generateMipmaps = false;
 
                 this.initMesh();
                 this.bindEvents();
             }
 
             initMesh() {
-                this.geometry = new THREE.PlaneGeometry(1, 1, 64, 64);
+                this.geometry = new THREE.PlaneGeometry(1, 1, 32, 32);
                 this.material = new THREE.ShaderMaterial({
                     uniforms: {
                         u_texture: { value: this.texture },
@@ -1100,10 +1196,8 @@ class ProjectMesh {
                     },
                     vertexShader: GALLERY_SHADERS.vertex,
                     fragmentShader: GALLERY_SHADERS.fragment,
-                    transparent: true,
-                    side: THREE.DoubleSide
+                    transparent: true
                 });
-
                 this.mesh = new THREE.Mesh(this.geometry, this.material);
                 this.scene.add(this.mesh);
             }
@@ -1117,31 +1211,28 @@ class ProjectMesh {
             update(velocity, time) {
                 const glass = this.element.querySelector('.glass-panel');
                 const rect = glass.getBoundingClientRect();
-                
                 if (rect.right < 0 || rect.left > window.innerWidth) {
                     this.mesh.visible = false;
                     return;
                 }
                 this.mesh.visible = true;
-
                 this.mesh.scale.set(rect.width, rect.height, 1);
                 this.mesh.position.x = rect.left - window.innerWidth / 2 + rect.width / 2;
                 this.mesh.position.y = -rect.top + window.innerHeight / 2 - rect.height / 2;
-
-                // Przekazujemy wymiary do efektu Cover
-                if(this.material.uniforms.u_res) {
-                    this.material.uniforms.u_res.value.set(rect.width, rect.height);
-                }
-
-                const targetHover = this.isHovered ? 1.0 : 0.0;
-                this.hoverProgress = MathUtils.lerp(this.hoverProgress, targetHover, 0.1);
                 
+                if(this.material.uniforms.u_res) this.material.uniforms.u_res.value.set(rect.width, rect.height);
+                
+                this.hoverProgress = MathUtils.lerp(this.hoverProgress, this.isHovered ? 1 : 0, 0.1);
                 this.material.uniforms.u_hover.value = this.hoverProgress;
                 this.material.uniforms.u_velocity.value = velocity;
                 this.material.uniforms.u_time.value = time;
             }
         }
 
+        /**
+         * PANCERNA CHOREOGRAFIA
+         * Wymusza widoczność strony niezależnie od błędów.
+         */
         /**
          * 6. GALLERY ENGINE
          * Główny system zarządzający wszystkimi projektami.
@@ -1384,101 +1475,34 @@ initHorizontalScroll() {
                 requestAnimationFrame(this.render.bind(this));
             }
         }
-        /**
-         * 8. CHOREOGRAFIA WEJŚCIA (ENTRANCE ANIMATIONS)
-         * Zarządza tym, jak elementy pojawiają się na ekranie podczas przewijania.
+/**
+         * PANCERNA CHOREOGRAFIA
+         * Wymusza widoczność strony niezależnie od błędów.
          */
         class AnimationChoreography {
             constructor() {
                 this.init();
             }
-
             init() {
-                // Konfiguracja domyślna dla ScrollTrigger
-                ScrollTrigger.defaults({
-                    toggleActions: "play none none none",
-                    start: "top 85%", // Animacja rusza, gdy element jest 15% od dołu ekranu
-                });
-
-                this.revealHero();
-                this.revealBento();
-                this.revealGeneral();
-            }
-
-            /**
-             * Sekwencja startowa Hero
-             * Tekst "wypływa" z dołu z luksusowym wygładzeniem.
-             */
-            revealHero() {
-                const tl = gsap.timeline({ delay: 0.5 });
-
-                tl.from("#hero .text-meta", {
-                    y: 30,
-                    opacity: 0,
-                    duration: 1,
-                    ease: "power4.out"
-                })
-                .from("#hero .text-display-giant span", {
-                    y: 100,
-                    opacity: 0,
-                    stagger: 0.2,
-                    duration: 1.5,
-                    ease: "power4.out"
-                }, "-=0.7")
-                .from("#hero .text-body", {
-                    y: 40,
-                    opacity: 0,
-                    duration: 1.2,
-                    ease: "power3.out"
-                }, "-=1")
-                .from("#hero .btn", {
-                    y: 20,
-                    opacity: 0,
-                    stagger: 0.15,
-                    duration: 1,
-                    ease: "power3.out"
-                }, "-=0.8");
-            }
-
-            /**
-             * Animacja siatki Bento
-             * Każdy kafelek pojawia się z delikatnym opóźnieniem względem poprzedniego.
-             */
-            revealBento() {
-                gsap.from("#expertise .glass-panel", {
-                    scrollTrigger: {
-                        trigger: ".bento-grid",
-                        start: "top 80%"
-                    },
-                    y: 60,
-                    opacity: 0,
-                    scale: 0.95,
-                    stagger: 0.15,
-                    duration: 1.2,
-                    ease: "power3.out"
-                });
-            }
-
-            /**
-             * Uniwersalny system reveal dla klas .gs-reveal
-             */
-            revealGeneral() {
-                const reveals = document.querySelectorAll('.gs-reveal');
+                // Ustawiamy startowe opacity przez JS, a nie CSS (bezpieczniej)
+                gsap.set(".gs-reveal, .bento-item", { opacity: 0, y: 30 });
                 
-                reveals.forEach((el) => {
-                    // Pomijamy elementy hero, bo mają własną oś czasu
-                    if (el.closest('#hero')) return;
-
-                    gsap.from(el, {
-                        scrollTrigger: {
-                            trigger: el,
-                        },
-                        y: 50,
-                        opacity: 0,
-                        duration: 1.2,
-                        ease: "power3.out"
+                this.revealHero();
+                
+                // Jeśli po 1 sekundzie nic się nie pojawi - wymuś pokazanie wszystkiego
+                setTimeout(() => {
+                    gsap.to(".gs-reveal, .bento-item, .glass-panel", { 
+                        opacity: 1, y: 0, duration: 1, stagger: 0.1, overwrite: true 
                     });
-                });
+                    document.body.classList.add('webgl-active');
+                    ScrollTrigger.refresh();
+                }, 1000);
+            }
+            revealHero() {
+                const tl = gsap.timeline();
+                tl.to("#hero .text-meta", { opacity: 1, y: 0, duration: 1 })
+                  .to("#hero .text-display-giant span", { opacity: 1, y: 0, stagger: 0.1, duration: 1 }, "-=0.7")
+                  .to("#hero .text-body, #hero .btn", { opacity: 1, y: 0, stagger: 0.1 }, "-=0.5");
             }
         }
 
