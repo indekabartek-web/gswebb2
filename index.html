@@ -327,7 +327,28 @@
                 aspect-ratio: 16/9; 
                 margin-right: 0 !important; 
             }
-            
+            /* NAPRAWA NAPISÓW NA ZDJĘCIACH (MOBILE) */
+            .project-slide .glass-panel > div {
+                padding: 1.5rem !important; /* Zmniejszamy padding z 4rem na 1.5rem */
+                background: linear-gradient(0deg, rgba(2,2,5,0.8) 0%, transparent 80%) !important;
+            }
+
+            .project-slide h3 {
+                font-size: 1.6rem !important; /* Zmniejszamy tytuł projektu (z 3rem) */
+                margin-bottom: 0.8rem !important;
+            }
+
+            .project-slide .text-meta {
+                font-size: 0.6rem !important; /* Mniejszy napis nad tytułem */
+                margin-bottom: 0.5rem !important;
+                letter-spacing: 0.1em !important;
+            }
+
+            /* Tag technologiczne (te w kółeczkach) */
+            .project-slide .glass-panel span[style*="font-size: 0.65rem"] {
+                font-size: 0.55rem !important; 
+                padding: 0.4rem 0.8rem !important;
+            }
             /* Napis "Portfolio" na telefonie musi być statyczny */
             #work .container { 
                 position: relative !important; 
