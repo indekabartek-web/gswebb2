@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Szymon Górecki | gsweb.pl | Innowacyjne Strony Internetowe Premium</title>
+    <title>Gsweb | gsweb.pl | Innowacyjne Strony Internetowe Premium</title>
     <meta name="description" content="Projektuję i koduję luksusowe doświadczenia cyfrowe. Przekształcam marki przez innowacyjny web development, WebGL i matematykę.">
     <meta name="theme-color" content="#020205">
 
@@ -274,7 +274,62 @@
         /* ==========================================================================
            7. CENNIK I LISTY
            ========================================================================== */
-        .pricing-card { display: flex; flex-direction: column; text-align: left; }
+        /* ==========================================================================
+           NOWE ANIMACJE PREMIUM DLA KART CENNIKA (HOVER EFFECTS)
+           ========================================================================== */
+        
+        /* Przygotowanie elementów wewnętrznych do płynnej animacji */
+        .pricing-card .pricing-price,
+        .pricing-card .pricing-list li,
+        .pricing-card .btn {
+            transition: all 0.4s var(--ease-smooth);
+            transform-origin: left center;
+        }
+
+        /* 1. Efekt na samej karcie (Złota poświata i powiększenie) */
+        .pricing-card:hover {
+            transform: translateY(-12px) scale(1.02);
+            border-color: rgba(212, 175, 55, 0.5);
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.8), 
+                        0 0 40px rgba(212, 175, 55, 0.15) !important;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        /* 2. Ożywienie ceny (Powiększenie i złoty kolor) */
+        .pricing-card:hover .pricing-price {
+            color: var(--color-accent-gold);
+            transform: scale(1.08) translateX(5px);
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+        }
+
+        /* 3. Kaskadowe wsunięcie elementów listy (Efekt fali) */
+        .pricing-card:hover .pricing-list li {
+            color: #FFFFFF; /* Tekst staje się w pełni biały/czytelny */
+            transform: translateX(10px); /* Wsuwa się w prawo */
+        }
+        
+        /* Dodajemy opóźnienia, żeby elementy listy wjeżdżały jeden po drugim */
+        .pricing-card:hover .pricing-list li:nth-child(1) { transition-delay: 0.05s; }
+        .pricing-card:hover .pricing-list li:nth-child(2) { transition-delay: 0.10s; }
+        .pricing-card:hover .pricing-list li:nth-child(3) { transition-delay: 0.15s; }
+        .pricing-card:hover .pricing-list li:nth-child(4) { transition-delay: 0.20s; }
+        .pricing-card:hover .pricing-list li:nth-child(5) { transition-delay: 0.25s; }
+        .pricing-card:hover .pricing-list li:nth-child(6) { transition-delay: 0.30s; }
+
+        /* 4. Subtelne podświetlenie ptaszków (ikon) na liście */
+        .pricing-card:hover .pricing-list li i {
+            text-shadow: 0 0 10px var(--color-accent-gold);
+            transform: scale(1.2);
+        }
+
+        /* 5. Gotowość przycisku (Wstępne podświetlenie) */
+        .pricing-card:hover .btn-outline {
+            border-color: var(--color-accent-gold);
+            color: var(--color-accent-gold);
+            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.1);
+        }
+        
+           .pricing-card { display: flex; flex-direction: column; text-align: left; }
         .pricing-price { font-size: 4rem; font-weight: 900; margin: 1.5rem 0; font-family: var(--font-heading); line-height: 1; }
         .pricing-price span { font-size: 1rem; color: var(--color-text-tertiary); font-weight: 400; letter-spacing: 0; }
         
@@ -282,6 +337,138 @@
         .pricing-list li { margin-bottom: 1rem; display: flex; align-items: flex-start; gap: 1rem; color: var(--color-text-secondary); font-size: 0.95rem; }
         .pricing-list li i { color: var(--color-accent-gold); margin-top: 5px; font-size: 0.8rem; }
 
+        /* ==========================================================================
+           EFEKT "SPOTLIGHT" - MAKSYMALNE WYRÓŻNIENIE OFERTY
+           ========================================================================== */
+
+        /* 1. MAGIA: Gdy siatka cennika "wykryje" najechanie na kartę, 
+              ściemnia, pomniejsza i rozmywa WSZYSTKIE POZOSTAŁE karty */
+        #services .bento-grid:has(.pricing-card:hover) .pricing-card:not(:hover) {
+            opacity: 0.35;
+            transform: scale(0.96) translateY(5px) !important;
+            filter: blur(2px) grayscale(40%);
+            border-color: rgba(255, 255, 255, 0.02);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* 2. ZNACZNIE SILNIEJSZY efekt dla karty, na którą aktualnie najeżdżasz */
+        .pricing-card {
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-16px) scale(1.04) !important; /* Jeszcze mocniejsze uniesienie */
+            border-color: var(--color-accent-gold) !important; /* Pełna, jasna złota ramka */
+            
+            /* Tło zmienia się w elegancki, złoto-czarny gradient */
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.12) 0%, rgba(255, 255, 255, 0.02) 100%) !important;
+            
+            /* Trójwymiarowy, potężny cień i złota aura */
+            box-shadow: 
+                0 50px 100px rgba(0, 0, 0, 0.95), /* Głęboki czarny cień pod spodem */
+                0 0 60px rgba(212, 175, 55, 0.25), /* Mocna złota aura naokoło */
+                inset 0 1px 1px rgba(212, 175, 55, 0.6) !important; /* Błysk szkła od góry */
+                
+            z-index: 50; /* Karta wychodzi na absolutny pierwszy plan */
+        }
+
+        /* ==========================================================================
+           NOWE EFEKTY PREMIUM: LIQUID BUTTONS & LEVITATING BONUS
+           ========================================================================== */
+
+        /* 1. PRZYCISKI ZAKUPU - EFEKT "ZALANIA" (LIQUID FILL) */
+        .pricing-card .btn {
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            transition: color 0.4s ease !important;
+            transform-style: preserve-3d;
+        }
+
+        /* Tworzymy wirtualne "dno", które jest ukryte poniżej przycisku */
+        .pricing-card .btn::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transform: translateY(101%); /* Schowane na samym dole */
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: -1;
+            border-radius: inherit; /* Dziedziczy zaokrąglenie przycisku */
+        }
+
+        /* Gdy przycisk jest Outline (przezroczysty), zalewa się na złoto */
+        .pricing-card .btn-outline::after { background: var(--color-accent-gold); }
+        .pricing-card .btn-outline:hover { color: #000 !important; border-color: var(--color-accent-gold); }
+        .pricing-card .btn-outline:hover::after { transform: translateY(0); }
+
+        /* Gdy przycisk jest już złoty (Primary), zalewa się na biało/kremowo */
+        .pricing-card .btn-primary::after { background: #FFFFFF; }
+        .pricing-card .btn-primary:hover { color: #000 !important; box-shadow: 0 15px 30px rgba(255, 255, 255, 0.2); }
+        .pricing-card .btn-primary:hover::after { transform: translateY(0); }
+
+        /* Lekkie "wgnięcenie" przycisku przy kliknięciu (Fizyka) */
+        .pricing-card .btn:active { transform: scale(0.95); }
+
+
+        /* 2. PANEL BONUSU - LEWITACJA I MGŁA (NEBULA) */
+        /* Płynna animacja lewitacji */
+        @keyframes floatBonusPanel {
+            0% { transform: translateY(0px); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+            50% { transform: translateY(-12px); box-shadow: 0 30px 50px rgba(212,175,55,0.15); }
+            100% { transform: translateY(0px); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        }
+
+        #services .glass-panel[style*="margin-top: 3rem"] {
+            animation: floatBonusPanel 6s ease-in-out infinite; /* Lewituje w pętli 6 sekund */
+            
+            /* Dodajemy bardzo subtelną mgłę w rogach panelu */
+            background: radial-gradient(circle at 100% 100%, rgba(212, 175, 55, 0.08) 0%, transparent 60%),
+                        radial-gradient(circle at 0% 0%, rgba(59, 130, 246, 0.04) 0%, rgba(255, 255, 255, 0.02) 60%) !important;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            transition: all 0.4s ease;
+        }
+
+        /* Zatrzymanie lewitacji i mocne podświetlenie, gdy użytkownik najedzie myszką */
+        #services .glass-panel[style*="margin-top: 3rem"]:hover {
+            animation-play-state: paused; /* Zatrzymujemy w miejscu */
+            border-color: rgba(212, 175, 55, 0.6);
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 40px 80px rgba(0,0,0,0.8), 0 0 60px rgba(212, 175, 55, 0.25);
+        }
+
+/* 3. EFEKT "MAGICZNEGO RDZENIA" DLA PREZENTU I JEGO TŁA */
+        
+        /* Fale świetlne rozchodzące się od kółka na zewnątrz (Sonar) */
+        @keyframes sonarPulse {
+            0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.6); }
+            70% { box-shadow: 0 0 0 25px rgba(212, 175, 55, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
+        }
+
+        /* Ożywienie okrągłego tła pod prezentem */
+        #services .glass-panel[style*="margin-top: 3rem"] div[style*="width: 120px"],
+        #services .glass-panel[style*="margin-top: 3rem"] div[style*="width: 70px"] { /* Zabezpieczenie dla obu wersji - RWD i PC */
+            animation: sonarPulse 2s infinite cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+        }
+
+        /* Kinowy, nieliniowy taniec samego prezentu */
+        @keyframes magicGift {
+            0% { transform: translateY(0) scale(1) rotate(0deg); filter: drop-shadow(0 0 5px rgba(212,175,55,0.4)); }
+            25% { transform: translateY(-4px) scale(1.1) rotate(-8deg); filter: drop-shadow(0 0 15px rgba(212,175,55,0.8)); }
+            50% { transform: translateY(-2px) scale(1.05) rotate(4deg); filter: drop-shadow(0 0 10px rgba(212,175,55,0.6)); }
+            75% { transform: translateY(-6px) scale(1.15) rotate(-4deg); filter: drop-shadow(0 0 25px rgba(212,175,55,1)); color: #FFF; } /* W punkcie kulminacyjnym robi się biało-złoty */
+            100% { transform: translateY(0) scale(1) rotate(0deg); filter: drop-shadow(0 0 5px rgba(212,175,55,0.4)); }
+        }
+
+        /* Aplikacja animacji do ikony */
+        #services .glass-panel[style*="margin-top: 3rem"] i.fa-gift {
+            display: inline-block;
+            animation: magicGift 3s ease-in-out infinite;
+        }
         /* ==========================================================================
            8. FORMULARZ I PRZYCISKI
            ========================================================================== */
@@ -312,8 +499,43 @@
         .cursor-dot { position: absolute; width: 8px; height: 8px; background: white; border-radius: 50%; transform: translate(-50%, -50%); transition: width 0.3s, height 0.3s, background-color 0.3s; }
         .cursor-glow { position: absolute; width: 350px; height: 350px; background: radial-gradient(circle, rgba(212, 175, 55, 0.15) 0%, transparent 70%); border-radius: 50%; transform: translate(-50%, -50%); mix-blend-mode: screen; }
         
-        body.is-hovering .cursor-dot { width: 60px; height: 60px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); backdrop-filter: blur(5px); }
-
+        body.is-hovering .cursor-dot { 
+    width: 40px; 
+    height: 40px; 
+    background: rgba(255,255,255,0.08); 
+    border: 1px solid rgba(255,255,255,0.2); 
+    backdrop-filter: blur(4px); 
+}
+/* ==========================================================================
+           ZAAWANSOWANY PRZEŁĄCZNIK JĘZYKA
+           ========================================================================== */
+        .lang-switcher { position: relative; z-index: 100; }
+        .lang-btn {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--glass-border);
+            border-radius: 30px;
+            padding: 0.5rem 0.9rem;
+            color: #fff;
+            cursor: pointer;
+            font-family: var(--font-heading);
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            transition: all 0.4s var(--ease-smooth);
+            display: flex;
+            gap: 0.4rem;
+            align-items: center;
+        }
+        .lang-btn:hover {
+            border-color: var(--color-accent-gold);
+            background: rgba(212, 175, 55, 0.05);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.15);
+        }
+        .lang-btn span { opacity: 0.4; transition: all 0.3s ease; }
+        .lang-btn span.active { 
+            opacity: 1; 
+            color: var(--color-accent-gold); 
+            font-weight: 800; 
+        }
         /* ==========================================================================
            10. RESPONSYWNOŚĆ (MOBILE RECOVERY)
            ========================================================================== */
@@ -583,7 +805,7 @@
     <canvas id="fluid-canvas"></canvas>
 
 
-    <header class="navbar" id="navbar">
+<header class="navbar" id="navbar">
         <div class="nav-inner">
             <a href="#hero" class="logo data-hover">
                 gs<span>web.pl</span>
@@ -591,15 +813,24 @@
             
             <nav class="nav-desktop">
                 <ul class="nav-links" style="list-style: none;">
-                    <li><a href="#about" class="nav-link data-hover">Manifest</a></li>
-                    <li><a href="#expertise" class="nav-link data-hover">Kompetencje</a></li>
-                    <li><a href="#work" class="nav-link data-hover">Realizacje</a></li>
-                    <li><a href="#services" class="nav-link data-hover">Inwestycja</a></li>
+                    <li><a href="#about" class="nav-link data-hover" data-i18n="nav-about">Manifest</a></li>
+                    <li><a href="#expertise" class="nav-link data-hover" data-i18n="nav-exp">Kompetencje</a></li>
+                    <li><a href="#work" class="nav-link data-hover" data-i18n="nav-work">Realizacje</a></li>
+                    <li><a href="#services" class="nav-link data-hover" data-i18n="nav-pricing">Inwestycja</a></li>
                 </ul>
             </nav>
 
             <div style="display: flex; align-items: center; gap: 1.5rem;">
-                <a href="#contact" class="btn btn-outline data-hover" style="padding: 0.8rem 1.8rem; font-size: 0.75rem;">
+                
+                <div class="lang-switcher">
+                    <button id="lang-toggle" class="lang-btn data-hover">
+                        <span class="lang-pl active">PL</span>
+                        <span class="separator" style="opacity: 0.3; font-size: 0.7rem;">/</span>
+                        <span class="lang-en">EN</span>
+                    </button>
+                </div>
+
+                <a href="#contact" class="btn btn-outline data-hover" style="padding: 0.8rem 1.8rem; font-size: 0.75rem;" data-i18n="nav-cta">
                     Zacznijmy projekt
                 </a>
             </div>
@@ -615,16 +846,16 @@
                     <div style="max-width: 1100px;">
                         
                         <div class="gs-reveal" style="margin-bottom: 2rem;">
-                            <span class="text-meta">/// Independent Creative Developer</span>
+                            <span class="text-meta" data-i18n="hero-sub">/// Independent Creative Developer</span>
                         </div>
 
-                        <h1 class="text-display-giant gs-reveal">
+                        <h1 class="text-display-giant gs-reveal" data-i18n="hero-title">
                             <span class="text-gradient">Buduję Strony,</span><br>
                             <span class="text-gold">Które Zarabiają.</span>
                         </h1>
 
                         <div class="gs-reveal" style="margin-top: 3.5rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem; align-items: start;">
-                            <p class="text-body" style="font-size: 1.3rem; line-height: 1.5; color: var(--color-text-primary);">
+                            <p class="text-body" style="font-size: 1.3rem; line-height: 1.5; color: var(--color-text-primary);" data-i18n="hero-desc">
                                 Porzuć przeciętność. Projektuję i koduję od podstaw witryny premium, 
                                 które nie tylko wyglądają jak dzieła sztuki, ale są precyzyjnymi 
                                 narzędziami do budowania Twojego zysku.
@@ -633,15 +864,11 @@
                             <div style="display: flex; flex-direction: column; gap: 1.5rem;">
                                 <div style="display: flex; gap: 1rem; align-items: center;">
                                     <div style="width: 40px; height: 1px; background: var(--color-accent-gold);"></div>
-                                    <span class="text-meta" style="color: var(--color-text-tertiary);">Technologia: Next.js / Three.js / WebGL</span>
+                                    <span class="text-meta" style="color: var(--color-text-tertiary);" data-i18n="hero-tech">Technologia: Next.js / Three.js / WebGL</span>
                                 </div>
                                 <div style="display: flex; gap: 2rem;">
-                                    <a href="#work" class="btn btn-primary data-hover">
-                                        Zobacz Projekty
-                                    </a>
-                                    <a href="#services" class="btn btn-outline data-hover">
-                                        Cennik
-                                    </a>
+                                    <a href="#work" class="btn btn-primary data-hover" data-i18n="hero-btn1">Zobacz Projekty</a>
+                                    <a href="#services" class="btn btn-outline data-hover" data-i18n="hero-btn2">Cennik</a>
                                 </div>
                             </div>
                         </div>
@@ -653,31 +880,31 @@
                     <div style="width: 1px; height: 60px; background: rgba(255,255,255,0.1); position: relative; overflow: hidden;">
                         <div id="scroll-indicator-bar" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: var(--color-accent-gold); transform: translateY(-100%);"></div>
                     </div>
-                    <span class="text-meta" style="font-size: 0.65rem; opacity: 0.5;">Przewiń aby odkryć</span>
+                    <span class="text-meta" style="font-size: 0.65rem; opacity: 0.5;" data-i18n="hero-scroll">Przewiń aby odkryć</span>
                 </div>
             </section>
 
 
-            <section id="about" class="section-padding" style="padding: 150px 0;">
+<section id="about" class="section-padding" style="padding: 150px 0;">
                 <div class="container">
                     <div class="grid-12" style="display: grid; grid-template-columns: repeat(12, 1fr); gap: 2rem;">
                         <div style="grid-column: 1 / span 4;">
-                            <p class="text-meta">01 // Filozofia</p>
+                            <p class="text-meta" data-i18n="about-tag">01 // Filozofia</p>
                         </div>
                         <div style="grid-column: 5 / span 8;">
-                            <h2 class="text-h2 gs-reveal" style="margin-bottom: 4rem;">
+                            <h2 class="text-h2 gs-reveal" style="margin-bottom: 4rem;" data-i18n="about-title">
                                 Większość stron internetowych jest nudna, wolna i identyczna. 
                                 <span style="color: var(--color-text-tertiary);">Moim celem jest złamanie tego standardu poprzez fuzję wybitnego designu i inżynierii kodu.</span>
                             </h2>
                             
                             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;" class="gs-reveal">
                                 <div>
-                                    <h4 class="text-gold" style="font-size: 1.2rem; margin-bottom: 1rem;">Estetyka Luksusu</h4>
-                                    <p class="text-body" style="font-size: 0.95rem;">Każdy projekt traktuję jak markę premium. Skupiam się na detalach, których Twoja konkurencja nawet nie zauważa.</p>
+                                    <h4 class="text-gold" style="font-size: 1.2rem; margin-bottom: 1rem;" data-i18n="about-box1-t">Estetyka Luksusu</h4>
+                                    <p class="text-body" style="font-size: 0.95rem;" data-i18n="about-box1-d">Każdy projekt traktuję jak markę premium. Skupiam się na detalach, których Twoja konkurencja nawet nie zauważa.</p>
                                 </div>
                                 <div>
-                                    <h4 class="text-gold" style="font-size: 1.2rem; margin-bottom: 1rem;">Inżynieria Prędkości</h4>
-                                    <p class="text-body" style="font-size: 0.95rem;">Używam najszybszych dostępnych technologii. Twoja strona będzie ładować się błyskawicznie na każdym urządzeniu.</p>
+                                    <h4 class="text-gold" style="font-size: 1.2rem; margin-bottom: 1rem;" data-i18n="about-box2-t">Inżynieria Prędkości</h4>
+                                    <p class="text-body" style="font-size: 0.95rem;" data-i18n="about-box2-d">Używam najszybszych dostępnych technologii. Twoja strona będzie ładować się błyskawicznie na każdym urządzeniu.</p>
                                 </div>
                             </div>
                         </div>
@@ -686,15 +913,14 @@
             </section>
 
 
-            <section id="expertise" style="padding-bottom: 150px;">
+ <section id="expertise" style="padding-bottom: 150px;">
                 <div class="container">
                     <div style="margin-bottom: 6rem;">
-                        <p class="text-meta" style="margin-bottom: 1.5rem;">02 // Kompetencje</p>
-                        <h2 class="text-h2">Architektura <br><span class="text-gold">Innowacji.</span></h2>
+                        <p class="text-meta" style="margin-bottom: 1.5rem;" data-i18n="exp-tag">02 // Kompetencje</p>
+                        <h2 class="text-h2" data-i18n="exp-title">Architektura <br><span class="text-gold">Innowacji.</span></h2>
                     </div>
 
                     <div class="bento-grid">
-                        
                         <div class="glass-panel bento-item bento-span-2 bento-row-2 data-hover gs-reveal">
                             <div class="visual-container">
                                 <div class="liquid-blob"></div>
@@ -702,7 +928,7 @@
                                 <div style="position: absolute; bottom: 15px; left: 20px; font-family: monospace; font-size: 10px; color: var(--color-accent-gold); opacity: 0.7; letter-spacing: 2px;">CORE_RENDERER // ACTIVE</div>
                             </div>
                             <h3>Creative Dev</h3>
-                            <p class="text-body">
+                            <p class="text-body" data-i18n="exp-b1-d">
                                 Przekraczam granice standardowego webu. Buduję interaktywne światy oparte na <b>Three.js</b> i <b>WebGL</b>. 
                                 Twoja strona stanie się immersyjnym doświadczeniem, które angażuje zmysły.
                             </p>
@@ -714,8 +940,8 @@
                         </div>
 
                         <div class="glass-panel bento-item bento-span-2 data-hover gs-reveal">
-                            <h3 style="color: white;">Design Systemy Premium</h3>
-                            <p class="text-body">
+                            <h3 style="color: white;" data-i18n="exp-b2-t">Design Systemy Premium</h3>
+                            <p class="text-body" data-i18n="exp-b2-d">
                                 Projektuję interfejsy z matematyczną precyzją. Obsesja na punkcie typografii, 
                                 mikrointerakcji i psychologii koloru pozwala mi tworzyć narzędzia, które sprzedają same.
                             </p>
@@ -728,45 +954,35 @@
                         </div>
 
                         <div class="glass-panel bento-item data-hover gs-reveal">
-                            <h3 style="color: white;">SEO & Optymalizacja</h3>
-                            <p class="text-body">
+                            <h3 style="color: white;" data-i18n="exp-b4-t">SEO & Optymalizacja</h3>
+                            <p class="text-body" data-i18n="exp-b4-d">
                                 Piękno to nie wszystko. Mój kod jest ultra-lekki i zoptymalizowany pod roboty Google, 
                                 zapewniając Twojej marce najwyższą widoczność.
                             </p>
                         </div>
-
                     </div>
                 </div>
             </section>
+
             <section id="work" class="work-section" style="background: transparent;">
-                
                <div class="container" style="position: absolute; top: 2vh; left: 0; right: 0; z-index: 100; pointer-events: none;">
                     <div style="display: flex; justify-content: space-between; align-items: flex-end;">
                         <div class="gs-reveal">
-                            <p class="text-meta" style="margin-bottom: 1rem; color: var(--color-accent-gold);">03 // Wybrane Realizacje</p>
-                            <h2 class="text-display" style="font-size: clamp(2rem, 6vw, 5rem); margin: 0;">Portfolio <span class="text-gold">Projektów.</span></h2>
-                        </div>
-                        <div class="gs-reveal" style="text-align: right; max-width: 300px; padding-bottom: 1rem;">
-                            <p class="text-body" style="font-size: 0.85rem; opacity: 0.6;">
-                                Każdy projekt to unikalna fuzja strategii biznesowej i technologii WebGL. 
-                                Scrolluj dalej, aby zobaczyć detale.
-                            </p>
+                            <p class="text-meta" style="margin-bottom: 1rem; color: var(--color-accent-gold);" data-i18n="work-tag">03 // Wybrane Realizacje</p>
+                            <h2 class="text-display" style="font-size: clamp(2rem, 6vw, 5rem); margin: 0;" data-i18n="work-title">Portfolio <span class="text-gold">Projektów.</span></h2>
                         </div>
                     </div>
                 </div>
 
                 <div class="work-track" id="work-track">
-                    
                     <div class="project-slide">
                         <div class="glass-panel data-hover" style="width: 100%; height: 100%; padding: 0; border-radius: 32px;">
-                            <img src="img/1.jpg" class="webgl-image-source" alt="E-commerce Project" crossorigin="anonymous">
-                            
+                            <img src="img/1.jpg" class="webgl-image-source" alt="Project 1" crossorigin="anonymous">
                             <div style="position: absolute; inset: 0; padding: 4rem; display: flex; flex-direction: column; justify-content: flex-end; background: linear-gradient(0deg, rgba(2,2,5,0.9) 0%, transparent 60%);">
-                                <span class="text-meta" style="color: white; margin-bottom: 1rem;">Sklep Internetowy // 2024</span>
-                                <h3 style="font-size: 3rem; color: white; margin-bottom: 1.5rem;">Aura <span class="text-gold">Ecosystem</span></h3>
+                                <span class="text-meta" style="color: white; margin-bottom: 1rem;" data-i18n="work-s1-t">Sklep dla fundacji // 2026</span>
+                                <h3 style="font-size: 3rem; color: white; margin-bottom: 1.5rem;" data-i18n="work-s1-h">Przejrzysty <span class="text-gold">design strony</span></h3>
                                 <div style="display: flex; gap: 1rem;">
                                     <span style="font-size: 0.65rem; padding: 0.6rem 1.2rem; border: 1px solid rgba(255,255,255,0.2); border-radius: 100px; color: white;">NEXT.JS</span>
-                                    <span style="font-size: 0.65rem; padding: 0.6rem 1.2rem; border: 1px solid rgba(255,255,255,0.2); border-radius: 100px; color: white;">PAYMENTS API</span>
                                 </div>
                             </div>
                         </div>
@@ -774,14 +990,12 @@
 
                     <div class="project-slide">
                         <div class="glass-panel data-hover" style="width: 100%; height: 100%; padding: 0; border-radius: 32px;">
-                            <img src="img/2.jpg" class="webgl-image-source" alt="Tech Platform" crossorigin="anonymous">
-                            
+                            <img src="img/2.jpg" class="webgl-image-source" alt="Project 2" crossorigin="anonymous">
                             <div style="position: absolute; inset: 0; padding: 4rem; display: flex; flex-direction: column; justify-content: flex-end; background: linear-gradient(0deg, rgba(2,2,5,0.9) 0%, transparent 60%);">
-                                <span class="text-meta" style="color: white; margin-bottom: 1rem;">Innowacyjna Platforma // 2024</span>
-                                <h3 style="font-size: 3rem; color: white; margin-bottom: 1.5rem;">Nexus <span class="text-gold">Protocol</span></h3>
+                                <span class="text-meta" style="color: white; margin-bottom: 1rem;" data-i18n="work-s1-t">Sklep dla fundacji // 2026</span>
+                                <h3 style="font-size: 3rem; color: white; margin-bottom: 1.5rem;"> </h3>
                                 <div style="display: flex; gap: 1rem;">
                                     <span style="font-size: 0.65rem; padding: 0.6rem 1.2rem; border: 1px solid rgba(255,255,255,0.2); border-radius: 100px; color: white;">WEBGL</span>
-                                    <span style="font-size: 0.65rem; padding: 0.6rem 1.2rem; border: 1px solid rgba(255,255,255,0.2); border-radius: 100px; color: white;">DASHBOARD</span>
                                 </div>
                             </div>
                         </div>
@@ -789,14 +1003,12 @@
 
                     <div class="project-slide">
                         <div class="glass-panel data-hover" style="width: 100%; height: 100%; padding: 0; border-radius: 32px;">
-                            <img src="img/3.jpg" class="webgl-image-source" alt="Branding Project" crossorigin="anonymous">
-                            
+                            <img src="img/3.jpg" class="webgl-image-source" alt="Project 3" crossorigin="anonymous">
                             <div style="position: absolute; inset: 0; padding: 4rem; display: flex; flex-direction: column; justify-content: flex-end; background: linear-gradient(0deg, rgba(2,2,5,0.9) 0%, transparent 60%);">
-                                <span class="text-meta" style="color: white; margin-bottom: 1rem;">Design System // 2023</span>
-                                <h3 style="font-size: 3rem; color: white; margin-bottom: 1.5rem;">Vanguard <span class="text-gold">Studio</span></h3>
+                                <span class="text-meta" style="color: white; margin-bottom: 1rem;" data-i18n="work-s1-t">Sklep dla fundacji // 2026</span>
+                                <h3 style="font-size: 3rem; color: white; margin-bottom: 1.5rem;" data-i18n="work-s3-h"><span class="text-gold">system zakupów</span></h3>
                                 <div style="display: flex; gap: 1rem;">
                                     <span style="font-size: 0.65rem; padding: 0.6rem 1.2rem; border: 1px solid rgba(255,255,255,0.2); border-radius: 100px; color: white;">GSAP</span>
-                                    <span style="font-size: 0.65rem; padding: 0.6rem 1.2rem; border: 1px solid rgba(255,255,255,0.2); border-radius: 100px; color: white;">PREMIUM UI</span>
                                 </div>
                             </div>
                         </div>
@@ -804,14 +1016,12 @@
 
                     <div class="project-slide">
                         <div class="glass-panel data-hover" style="width: 100%; height: 100%; padding: 0; border-radius: 32px;">
-                            <img src="img/4.jpg" class="webgl-image-source" alt="Corporate" crossorigin="anonymous">
-                            
+                            <img src="img/4.jpg" class="webgl-image-source" alt="Project 4" crossorigin="anonymous">
                             <div style="position: absolute; inset: 0; padding: 4rem; display: flex; flex-direction: column; justify-content: flex-end; background: linear-gradient(0deg, rgba(2,2,5,0.9) 0%, transparent 60%);">
-                                <span class="text-meta" style="color: white; margin-bottom: 1rem;">Corporate Web // 2024</span>
-                                <h3 style="font-size: 3rem; color: white; margin-bottom: 1.5rem;">Oblivion <span class="text-gold">Group</span></h3>
+                                <span class="text-meta" style="color: white; margin-bottom: 1rem;" data-i18n="work-s1-t">Sklep dla fundacji // 2026</span>
+                                <h3 style="font-size: 3rem; color: white; margin-bottom: 1.5rem;" data-i18n="work-s4-h"><span class="text-gold">Transakcje</span></h3>
                                 <div style="display: flex; gap: 1rem;">
                                     <span style="font-size: 0.65rem; padding: 0.6rem 1.2rem; border: 1px solid rgba(255,255,255,0.2); border-radius: 100px; color: white;">CMS</span>
-                                    <span style="font-size: 0.65rem; padding: 0.6rem 1.2rem; border: 1px solid rgba(255,255,255,0.2); border-radius: 100px; color: white;">STRATEGY</span>
                                 </div>
                             </div>
                         </div>
@@ -819,13 +1029,11 @@
 
                     <div class="project-slide">
                         <div class="glass-panel data-hover" style="width: 100%; height: 100%; padding: 0; border-radius: 32px;">
-                            <img src="img/5.jpg" class="webgl-image-source" alt="Experimental" crossorigin="anonymous">
-                            
+                            <img src="img/5.jpg" class="webgl-image-source" alt="Project 5" crossorigin="anonymous">
                             <div style="position: absolute; inset: 0; padding: 4rem; display: flex; flex-direction: column; justify-content: flex-end; background: linear-gradient(0deg, rgba(2,2,5,0.9) 0%, transparent 60%);">
-                                <span class="text-meta" style="color: white; margin-bottom: 1rem;">WebGL Art // 2025</span>
-                                <h3 style="font-size: 3rem; color: white; margin-bottom: 1.5rem;">Cyber <span class="text-gold">Minimalism</span></h3>
+                                <span class="text-meta" style="color: white; margin-bottom: 1rem;" data-i18n="work-s1-t">Sklep dla fundacji // 2026</span>
+                                <h3 style="font-size: 3rem; color: white; margin-bottom: 1.5rem;" data-i18n="work-s5-h"><span class="text-gold">Podstrony</span></h3>
                                 <div style="display: flex; gap: 1rem;">
-                                    <span style="font-size: 0.65rem; padding: 0.6rem 1.2rem; border: 1px solid rgba(255,255,255,0.2); border-radius: 100px; color: white;">SHADERS</span>
                                     <span style="font-size: 0.65rem; padding: 0.6rem 1.2rem; border: 1px solid rgba(255,255,255,0.2); border-radius: 100px; color: white;">THREE.JS</span>
                                 </div>
                             </div>
@@ -834,15 +1042,13 @@
                 </div>
             </section>
 
-
             <section id="services" style="padding: 150px 0;">
                 <div class="container">
-                    
                     <div style="text-align: center; margin-bottom: 8rem;">
                         <div class="gs-reveal">
-                            <p class="text-meta" style="margin-bottom: 1rem;">04 // Inwestycja</p>
-                            <h2 class="text-h2">Wybierz swój <span class="text-gold">Standard.</span></h2>
-                            <p class="text-body" style="margin: 2rem auto 0; max-width: 600px;">
+                            <p class="text-meta" style="margin-bottom: 1rem;" data-i18n="srv-tag">04 // Inwestycja</p>
+                            <h2 class="text-h2" data-i18n="srv-title">Wybierz swój <span class="text-gold">Standard.</span></h2>
+                            <p class="text-body" style="margin: 2rem auto 0; max-width: 600px;" data-i18n="srv-desc">
                                 Nie oferuję tanich stron. Oferuję narzędzia do skalowania Twojego biznesu, 
                                 których jakość broni się sama od pierwszej sekundy.
                             </p>
@@ -850,55 +1056,54 @@
                     </div>
 
                     <div class="bento-grid">
-                        
                         <div class="glass-panel bento-item pricing-card data-hover gs-reveal">
                             <div>
-                                <span class="text-meta" style="font-size: 0.65rem; opacity: 0.6;">Dla małych projektów</span>
+                                <span class="text-meta" style="font-size: 0.65rem; opacity: 0.6;" data-i18n="srv-p1-tag">Dla małych projektów</span>
                                 <div class="pricing-price">649 <span>PLN</span></div>
                                 <h3>Starter Kit</h3>
-                                <p class="text-body" style="font-size: 0.85rem; margin-top: 1rem;">Idealny wybór na start, zapewniający profesjonalną obecność w sieci.</p>
+                                <p class="text-body" style="font-size: 0.85rem; margin-top: 1rem;" data-i18n="srv-p1-desc">Idealny wybór na start, zapewniający profesjonalną obecność w sieci.</p>
                                 
                                 <ul class="pricing-list">
-                                    <li><i class="fa-solid fa-check"></i> Strona One-Page (do 5 sekcji)</li>
-                                    <li><i class="fa-solid fa-check"></i> Pełna responsywność (Mobile)</li>
-                                    <li><i class="fa-solid fa-check"></i> Formularz kontaktowy EmailJS</li>
-                                    <li><i class="fa-solid fa-check"></i> Optymalizacja prędkości (Speed)</li>
-                                    <li><i class="fa-solid fa-check"></i> Hosting i Domena (3 lata FREE)</li>
+                                    <li data-i18n="srv-p1-l1"><i class="fa-solid fa-check"></i> Strona One-Page (do 5 sekcji)</li>
+                                    <li data-i18n="srv-p1-l2"><i class="fa-solid fa-check"></i> Pełna responsywność (Mobile)</li>
+                                    <li data-i18n="srv-p1-l3"><i class="fa-solid fa-check"></i> Formularz kontaktowy EmailJS</li>
+                                    <li data-i18n="srv-p1-l4"><i class="fa-solid fa-check"></i> Optymalizacja prędkości (Speed)</li>
+                                    <li data-i18n="srv-free"><i class="fa-solid fa-check"></i> Hosting i Domena (3 lata FREE)</li>
                                 </ul>
                             </div>
-                            <a href="#contact" class="btn btn-outline" style="margin-top: auto; width: 100%;">Wybieram Starter</a>
+                            <a href="#contact" class="btn btn-outline" style="margin-top: auto; width: 100%;" data-i18n="srv-p1-btn">Wybieram Starter</a>
                         </div>
 
                         <div class="glass-panel bento-item pricing-card data-hover gs-reveal" style="border-color: var(--color-accent-gold); background: rgba(212, 175, 55, 0.05);">
-                            <div style="position: absolute; top: 0; right: 0; background: var(--color-accent-gold); color: black; padding: 0.6rem 1.5rem; font-family: var(--font-heading); font-size: 0.7rem; font-weight: 900; border-bottom-left-radius: 15px;">NAJCZĘSTSZY WYBÓR</div>
+                            <div style="position: absolute; top: 0; right: 0; background: var(--color-accent-gold); color: black; padding: 0.6rem 1.5rem; font-family: var(--font-heading); font-size: 0.7rem; font-weight: 900; border-bottom-left-radius: 15px;" data-i18n="srv-p2-badge">NAJCZĘSTSZY WYBÓR</div>
                             <div>
-                                <span class="text-meta" style="font-size: 0.65rem; opacity: 1;">Dla firm i usług</span>
+                                <span class="text-meta" style="font-size: 0.65rem; opacity: 1;" data-i18n="srv-p2-tag">Dla firm i usług</span>
                                 <div class="pricing-price">1299 <span>PLN</span></div>
                                 <h3>Business Elite</h3>
-                                <p class="text-body" style="font-size: 0.85rem; margin-top: 1rem;">Zaawansowany Landing Page zaprojektowany pod konwersję i sprzedaż.</p>
+                                <p class="text-body" style="font-size: 0.85rem; margin-top: 1rem;" data-i18n="srv-p2-desc">Zaawansowany Landing Page zaprojektowany pod konwersję i sprzedaż.</p>
                                 
                                 <ul class="pricing-list">
-                                    <li><i class="fa-solid fa-check"></i> Strona do 7 podstron</li>
-                                    <li><i class="fa-solid fa-check"></i> Autorski Design System</li>
-                                    <li><i class="fa-solid fa-check"></i> Panel zarządzania treścią CMS</li>
-                                    <li><i class="fa-solid fa-check"></i> Integracja Social Media & Maps</li>
-                                    <li><i class="fa-solid fa-check"></i> SEO Score 95+ (Gwarantowane)</li>
-                                    <li><i class="fa-solid fa-check"></i> Hosting i Domena (3 lata FREE)</li>
+                                    <li data-i18n="srv-p2-l1"><i class="fa-solid fa-check"></i> Strona do 7 podstron</li>
+                                    <li data-i18n="srv-p2-l2"><i class="fa-solid fa-check"></i> Autorski Design System</li>
+                                    <li data-i18n="srv-p2-l3"><i class="fa-solid fa-check"></i> Panel zarządzania treścią CMS</li>
+                                    <li data-i18n="srv-p2-l4"><i class="fa-solid fa-check"></i> Integracja Social Media & Maps</li>
+                                    <li data-i18n="srv-p2-l5"><i class="fa-solid fa-check"></i> SEO Score 95+ (Gwarantowane)</li>
+                                    <li data-i18n="srv-free"><i class="fa-solid fa-check"></i> Hosting i Domena (3 lata FREE)</li>
                                 </ul>
                             </div>
-                            <a href="#contact" class="btn btn-primary" style="margin-top: auto; width: 100%;">Rozpocznij Business</a>
+                            <a href="#contact" class="btn btn-primary" style="margin-top: auto; width: 100%;" data-i18n="srv-p2-btn">Rozpocznij Business</a>
                         </div>
 
                         <div class="glass-panel bento-item bento-span-2 pricing-card data-hover gs-reveal">
                             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; height: 100%;">
                                 <div style="display: flex; flex-direction: column;">
-                                    <span class="text-meta" style="font-size: 0.65rem; opacity: 0.6;">E-Commerce & Apps</span>
+                                    <span class="text-meta" style="font-size: 0.65rem; opacity: 0.6;" data-i18n="srv-p3-tag">E-Commerce & Apps</span>
                                     <div class="pricing-price">2499 <span>PLN</span></div>
                                     <h3>Professional Store</h3>
-                                    <p class="text-body" style="font-size: 0.85rem; margin-top: 1rem;">Kompletny system sprzedaży online dla marek, które nie uznają kompromisów.</p>
+                                    <p class="text-body" style="font-size: 0.85rem; margin-top: 1rem;" data-i18n="srv-p3-desc">Kompletny system sprzedaży online dla marek, które nie uznają kompromisów.</p>
                                     
                                     <div style="margin-top: auto; padding-top: 2rem;">
-                                        <p class="text-meta" style="font-size: 0.6rem; color: var(--color-text-tertiary); margin-bottom: 1rem;">Kluczowe moduły:</p>
+                                        <p class="text-meta" style="font-size: 0.6rem; color: var(--color-text-tertiary); margin-bottom: 1rem;" data-i18n="srv-p3-mod">Kluczowe moduły:</p>
                                         <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
                                             <span style="font-size: 0.6rem; padding: 0.4rem 0.8rem; background: rgba(255,255,255,0.05); border-radius: 50px;">STRIPE / P24</span>
                                             <span style="font-size: 0.6rem; padding: 0.4rem 0.8rem; background: rgba(255,255,255,0.05); border-radius: 50px;">INVENTORY</span>
@@ -908,13 +1113,13 @@
                                 </div>
                                 <div style="display: flex; flex-direction: column; justify-content: space-between;">
                                     <ul class="pricing-list" style="margin-top: 0;">
-                                        <li><i class="fa-solid fa-check"></i> System sklepowy (nieograniczone produkty)</li>
-                                        <li><i class="fa-solid fa-check"></i> Płatności automatyczne (BLIK, Karty)</li>
-                                        <li><i class="fa-solid fa-check"></i> Zaawansowana analityka ruchu</li>
-                                        <li><i class="fa-solid fa-check"></i> Support techniczny 24/7 (6 msc)</li>
-                                        <li><i class="fa-solid fa-check"></i> Hosting i Domena (3 lata FREE)</li>
+                                        <li data-i18n="srv-p3-l1"><i class="fa-solid fa-check"></i> System sklepowy (nieograniczone produkty)</li>
+                                        <li data-i18n="srv-p3-l2"><i class="fa-solid fa-check"></i> Płatności automatyczne (BLIK, Karty)</li>
+                                        <li data-i18n="srv-p3-l3"><i class="fa-solid fa-check"></i> Zaawansowana analityka ruchu</li>
+                                        <li data-i18n="srv-p3-l4"><i class="fa-solid fa-check"></i> Support techniczny 24/7 (6 msc)</li>
+                                        <li data-i18n="srv-free"><i class="fa-solid fa-check"></i> Hosting i Domena (3 lata FREE)</li>
                                     </ul>
-                                    <a href="#contact" class="btn btn-outline" style="width: 100%;">Zaprojektuj mój sklep</a>
+                                    <a href="#contact" class="btn btn-outline" style="width: 100%;" data-i18n="srv-p3-btn">Zaprojektuj mój sklep</a>
                                 </div>
                             </div>
                         </div>
@@ -926,8 +1131,8 @@
                                 <i class="fa-solid fa-gift"></i>
                             </div>
                             <div style="flex: 1; min-width: 300px;">
-                                <h3 style="color: var(--color-accent-gold); margin-bottom: 0.8rem; text-transform: none; font-size: 1.8rem;">Hosting, Domena i Obsługa na 3 lata – GRATIS!</h3>
-                                <p class="text-body" style="font-size: 1rem; opacity: 0.8; max-width: 800px;">
+                                <h3 style="color: var(--color-accent-gold); margin-bottom: 0.8rem; text-transform: none; font-size: 1.8rem;" data-i18n="srv-bonus-t">Hosting, Domena i Obsługa na 3 lata – GRATIS!</h3>
+                                <p class="text-body" style="font-size: 1rem; opacity: 0.8; max-width: 800px;" data-i18n="srv-bonus-d">
                                     Zdejmuję z Ciebie ciężar opłat technicznych. Przez pierwsze 36 miesięcy zapewniam szybki serwer, 
                                     bezpieczny certyfikat SSL oraz utrzymanie domeny całkowicie bezpłatnie. 
                                     <b>Żadnych ukrytych kosztów.</b>
@@ -935,20 +1140,19 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </section>
+
             <section id="contact" style="padding: 100px 0 150px 0; position: relative;">
                 <div class="container">
-                    
                     <div class="contact-grid" style="display: grid; grid-template-columns: 1fr 1.2fr; gap: 6rem;">
                         
                         <div class="gs-reveal">
-                            <p class="text-meta" style="color: var(--color-accent-gold); margin-bottom: 2rem;">05 // Kontakt</p>
+                            <p class="text-meta" style="color: var(--color-accent-gold); margin-bottom: 2rem;" data-i18n="cnt-tag">05 // Kontakt</p>
                             <h2 class="text-display" style="font-size: 4.5rem; line-height: 0.9; margin-bottom: 2.5rem;">
                                 Let's <br><span class="text-gold">Talk.</span>
                             </h2>
-                            <p class="text-body" style="font-size: 1.2rem; margin-bottom: 4rem; max-width: 450px;">
+                            <p class="text-body" style="font-size: 1.2rem; margin-bottom: 4rem; max-width: 450px;" data-i18n="cnt-desc">
                                 Masz projekt, który wymaga wybitnej egzekucji? Szukasz partnera, który 
                                 przełoży Twoją wizję na język kodu premium? Napisz bezpośrednio.
                             </p>
@@ -958,7 +1162,7 @@
                                     <i class="fa-regular fa-envelope"></i>
                                     <span>goreckiszymon77@gmail.com</span>
                                 </a>
-                                <p class="text-meta" style="font-size: 0.65rem; margin-top: 1rem; opacity: 0.5;">
+                                <p class="text-meta" style="font-size: 0.65rem; margin-top: 1rem; opacity: 0.5;" data-i18n="cnt-reply">
                                     Odpowiadam zazwyczaj w ciągu 24 godzin.
                                 </p>
                             </div>
@@ -976,43 +1180,39 @@
                             <form id="contact-form" style="position: relative; z-index: 10;">
                                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
                                     <div class="form-group">
-                                        <label class="text-meta" style="font-size: 0.6rem; display: block; margin-bottom: 0.8rem; opacity: 0.6;">Twoje Imię</label>
-                                        <input type="text" name="user_name" id="user_name" placeholder="np. Jan Kowalski" required>
+                                        <label class="text-meta" style="font-size: 0.6rem; display: block; margin-bottom: 0.8rem; opacity: 0.6;" data-i18n="cnt-lbl-name">Twoje Imię</label>
+                                        <input type="text" name="user_name" id="user_name" placeholder="np. Jan Kowalski" data-i18n-ph="ph-name" required>
                                     </div>
                                     <div class="form-group">
-                                        <label class="text-meta" style="font-size: 0.6rem; display: block; margin-bottom: 0.8rem; opacity: 0.6;">Adres E-mail</label>
-                                        <input type="email" name="user_email" id="user_email" placeholder="twoj@mail.pl" required>
+                                        <label class="text-meta" style="font-size: 0.6rem; display: block; margin-bottom: 0.8rem; opacity: 0.6;" data-i18n="cnt-lbl-email">Adres E-mail</label>
+                                        <input type="email" name="user_email" id="user_email" placeholder="twoj@mail.pl" data-i18n-ph="ph-email" required>
                                     </div>
                                 </div>
 
                                 <div class="form-group" style="margin-top: 1rem;">
-                                    <label class="text-meta" style="font-size: 0.6rem; display: block; margin-bottom: 0.8rem; opacity: 0.6;">W czym mogę pomóc?</label>
-                                    <textarea name="message" id="message" placeholder="Opisz swój projekt, cele i oczekiwania..." rows="6" required></textarea>
+                                    <label class="text-meta" style="font-size: 0.6rem; display: block; margin-bottom: 0.8rem; opacity: 0.6;" data-i18n="cnt-lbl-msg">W czym mogę pomóc?</label>
+                                    <textarea name="message" id="message" placeholder="Opisz swój projekt, cele i oczekiwania..." rows="6" data-i18n-ph="ph-msg" required></textarea>
                                 </div>
 
                                 <div style="margin-top: 2rem;">
-                                    <button type="submit" id="submit-btn" class="btn btn-primary data-hover" style="width: 100%; border-radius: 14px;">
-                                        Wyślij wiadomość 
-                                        <i class="fa-solid fa-paper-plane" style="margin-left: 10px; font-size: 0.8rem;"></i>
+                                    <button type="submit" id="submit-btn" class="btn btn-primary data-hover" style="width: 100%; border-radius: 14px;" data-i18n="cnt-btn">
+                                        Wyślij wiadomość <i class="fa-solid fa-paper-plane" style="margin-left: 10px; font-size: 0.8rem;"></i>
                                     </button>
                                 </div>
 
                                 <p id="form-status" style="margin-top: 2rem; font-weight: 700; text-align: center; font-size: 0.85rem; letter-spacing: 0.05em; min-height: 1.2em;"></p>
                             </form>
                         </div>
-
                     </div>
                 </div>
             </section>
 
-
             <footer style="padding: 6rem 0; border-top: 1px solid var(--glass-border); background: rgba(0,0,0,0.2);">
                 <div class="container">
                     <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 3rem;">
-                        
                         <div>
                             <a href="#hero" class="logo" style="font-size: 1.8rem;">gs<span>web.pl</span></a>
-                            <p class="text-meta" style="margin-top: 1.5rem; opacity: 0.4; text-transform: none; font-size: 0.75rem;">
+                            <p class="text-meta" style="margin-top: 1.5rem; opacity: 0.4; text-transform: none; font-size: 0.75rem;" data-i18n="ftr-copy">
                                 Built with Mathematics & Physics. <br>
                                 © 2026 Szymon Górecki. Wszystkie prawa zastrzeżone.
                             </p>
@@ -1020,16 +1220,15 @@
 
                         <div style="text-align: right;">
                             <div style="display: flex; gap: 2rem; margin-bottom: 1.5rem; justify-content: flex-end;">
-                                <a href="#expertise" class="nav-link" style="font-size: 0.6rem;">Expertise</a>
-                                <a href="#work" class="nav-link" style="font-size: 0.6rem;">Realizacje</a>
-                                <a href="#contact" class="nav-link" style="font-size: 0.6rem;">Polityka Prywatności</a>
+                                <a href="#expertise" class="nav-link" style="font-size: 0.6rem;" data-i18n="nav-exp">Kompetencje</a>
+                                <a href="#work" class="nav-link" style="font-size: 0.6rem;" data-i18n="nav-work">Realizacje</a>
+                                <a href="#contact" class="nav-link" style="font-size: 0.6rem;" data-i18n="ftr-priv">Polityka Prywatności</a>
                             </div>
                             <div style="display: flex; align-items: center; gap: 1rem; justify-content: flex-end;">
                                 <div style="width: 8px; height: 8px; background: #10b981; border-radius: 50%; box-shadow: 0 0 10px #10b981;"></div>
-                                <span class="text-meta" style="font-size: 0.65rem; color: white;">Status: Przyjmuję nowe zlecenia</span>
+                                <span class="text-meta" style="font-size: 0.65rem; color: white;" data-i18n="ftr-status">Status: Przyjmuję nowe zlecenia</span>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </footer>
@@ -1665,8 +1864,8 @@ initHorizontalScroll() {
                 interactives.forEach(el => {
                     el.addEventListener('mouseenter', () => {
                         document.body.classList.add('is-hovering');
-                        gsap.to(this.dot, { scale: 4, duration: 0.3 });
-                        gsap.to(this.glow, { scale: 1.5, opacity: 0.3, duration: 0.3 });
+                        gsap.to(this.dot, { scale: 1.0, duration: 0.3 });
+                        gsap.to(this.glow, { scale: 1.5, opacity: 0.3, duration: 0.4 });
                     });
                     el.addEventListener('mouseleave', () => {
                         document.body.classList.remove('is-hovering');
@@ -1845,6 +2044,162 @@ initHorizontalScroll() {
             }
             return false;
         };
+ /**
+         * ==========================================================================
+         * 13.5 ZAAWANSOWANY SILNIK I18N (CAŁA STRONA)
+         * ==========================================================================
+         */
+        const i18nDict = {
+            // NAWIGACJA
+            "nav-about": { pl: "Manifest", en: "Manifesto" },
+            "nav-exp": { pl: "Kompetencje", en: "Expertise" },
+            "nav-work": { pl: "Realizacje", en: "Projects" },
+            "nav-pricing": { pl: "Inwestycja", en: "Investment" },
+            "nav-cta": { pl: "Zacznijmy projekt", en: "Start a project" },
+            
+            // HERO
+            "hero-sub": { pl: "/// Independent Creative Developer", en: "/// Independent Creative Developer" },
+            "hero-title": { pl: "<span class='text-gradient'>Buduję Strony,</span><br><span class='text-gold'>Które Zarabiają.</span>", en: "<span class='text-gradient'>I Build Sites,</span><br><span class='text-gold'>That Generate Profit.</span>" },
+            "hero-desc": { pl: "Porzuć przeciętność. Projektuję i koduję od podstaw witryny premium, które nie tylko wyglądają jak dzieła sztuki, ale są precyzyjnymi narzędziami do budowania Twojego zysku.", en: "Ditch mediocrity. I design and code premium websites from scratch that not only look like works of art but are precise tools for building your revenue." },
+            "hero-tech": { pl: "Technologia: Next.js / Three.js / WebGL", en: "Technology: Next.js / Three.js / WebGL" },
+            "hero-btn1": { pl: "Zobacz Projekty", en: "View Projects" },
+            "hero-btn2": { pl: "Cennik", en: "Pricing" },
+            "hero-scroll": { pl: "Przewiń aby odkryć", en: "Scroll to discover" },
+
+            // MANIFEST
+            "about-tag": { pl: "01 // Filozofia", en: "01 // Philosophy" },
+            "about-title": { pl: "Większość stron internetowych jest nudna, wolna i identyczna. <span style='color: var(--color-text-tertiary);'>Moim celem jest złamanie tego standardu poprzez fuzję wybitnego designu i inżynierii kodu.</span>", en: "Most websites are boring, slow, and identical. <span style='color: var(--color-text-tertiary);'>My goal is to break this standard through a fusion of outstanding design and code engineering.</span>" },
+            "about-box1-t": { pl: "Estetyka Luksusu", en: "Luxury Aesthetics" },
+            "about-box1-d": { pl: "Każdy projekt traktuję jak markę premium. Skupiam się na detalach, których Twoja konkurencja nawet nie zauważa.", en: "I treat every project like a premium brand. I focus on details your competition doesn't even notice." },
+            "about-box2-t": { pl: "Inżynieria Prędkości", en: "Speed Engineering" },
+            "about-box2-d": { pl: "Używam najszybszych dostępnych technologii. Twoja strona będzie ładować się błyskawicznie na każdym urządzeniu.", en: "I use the fastest available technologies. Your site will load instantly on any device." },
+
+            // KOMPETENCJE (Architektura Innowacji)
+            "exp-tag": { pl: "02 // Kompetencje", en: "02 // Expertise" },
+            "exp-title": { pl: "Architektura <br><span class='text-gold'>Innowacji.</span>", en: "Architecture of <br><span class='text-gold'>Innovation.</span>" },
+            "exp-b1-d": { pl: "Przekraczam granice standardowego webu. Buduję interaktywne światy oparte na <b>Three.js</b> i <b>WebGL</b>. Twoja strona stanie się immersyjnym doświadczeniem, które angażuje zmysły.", en: "I push the boundaries of the standard web. I build interactive worlds based on <b>Three.js</b> and <b>WebGL</b>. Your site will become an immersive experience." },
+            "exp-b2-t": { pl: "Design Systemy Premium", en: "Premium Design Systems" },
+            "exp-b2-d": { pl: "Projektuję interfejsy z matematyczną precyzją. Obsesja na punkcie typografii, mikrointerakcji i psychologii koloru pozwala mi tworzyć narzędzia, które sprzedają same.", en: "I design interfaces with mathematical precision. An obsession with typography, micro-interactions, and color psychology allows me to create tools that sell themselves." },
+            "exp-b4-t": { pl: "SEO & Optymalizacja", en: "SEO & Optimization" },
+            "exp-b4-d": { pl: "Piękno to nie wszystko. Mój kod jest ultra-lekki i zoptymalizowany pod roboty Google, zapewniając Twojej marce najwyższą widoczność.", en: "Beauty isn't everything. My code is ultra-lightweight and optimized for Google bots, ensuring your brand maximum visibility." },
+
+            // PORTFOLIO
+            "work-tag": { pl: "03 // Wybrane Realizacje", en: "03 // Selected Work" },
+            "work-title": { pl: "Portfolio <span class='text-gold'>Projektów.</span>", en: "Project <span class='text-gold'>Portfolio.</span>" },
+            "work-s1-t": { pl: "Sklep dla fundacji // 2026", en: "Foundation Store // 2026" },
+            "work-s1-h": { pl: "Przejrzysty <span class='text-gold'>design strony</span>", en: "Clean <span class='text-gold'>web design</span>" },
+            "work-s3-h": { pl: "<span class='text-gold'>system zakupów</span>", en: "<span class='text-gold'>shopping system</span>" },
+            "work-s4-h": { pl: "<span class='text-gold'>Transakcje</span>", en: "<span class='text-gold'>Transactions</span>" },
+            "work-s5-h": { pl: "<span class='text-gold'>Podstrony</span>", en: "<span class='text-gold'>Subpages</span>" },
+
+            // CENNIK
+            "srv-tag": { pl: "04 // Inwestycja", en: "04 // Investment" },
+            "srv-title": { pl: "Wybierz swój <span class='text-gold'>Standard.</span>", en: "Choose your <span class='text-gold'>Standard.</span>" },
+            "srv-desc": { pl: "Nie oferuję tanich stron. Oferuję narzędzia do skalowania Twojego biznesu, których jakość broni się sama od pierwszej sekundy.", en: "I don't offer cheap websites. I offer tools to scale your business, the quality of which defends itself from the very first second." },
+            
+            "srv-p1-tag": { pl: "Dla małych projektów", en: "For small projects" },
+            "srv-p1-desc": { pl: "Idealny wybór na start, zapewniający profesjonalną obecność w sieci.", en: "The perfect choice to start, ensuring a professional online presence." },
+            "srv-p1-btn": { pl: "Wybieram Starter", en: "Choose Starter" },
+            "srv-p1-l1": { pl: "<i class='fa-solid fa-check'></i> Strona One-Page (do 5 sekcji)", en: "<i class='fa-solid fa-check'></i> One-Page Site (up to 5 sections)" },
+            "srv-p1-l2": { pl: "<i class='fa-solid fa-check'></i> Pełna responsywność (Mobile)", en: "<i class='fa-solid fa-check'></i> Fully responsive (Mobile)" },
+            "srv-p1-l3": { pl: "<i class='fa-solid fa-check'></i> Formularz kontaktowy EmailJS", en: "<i class='fa-solid fa-check'></i> EmailJS contact form" },
+            "srv-p1-l4": { pl: "<i class='fa-solid fa-check'></i> Optymalizacja prędkości (Speed)", en: "<i class='fa-solid fa-check'></i> Speed optimization" },
+            
+            "srv-p2-badge": { pl: "NAJCZĘSTSZY WYBÓR", en: "MOST POPULAR" },
+            "srv-p2-tag": { pl: "Dla firm i usług", en: "For businesses & services" },
+            "srv-p2-desc": { pl: "Zaawansowany Landing Page zaprojektowany pod konwersję i sprzedaż.", en: "Advanced Landing Page designed for conversion and sales." },
+            "srv-p2-btn": { pl: "Rozpocznij Business", en: "Start Business" },
+            "srv-p2-l1": { pl: "<i class='fa-solid fa-check'></i> Strona do 7 podstron", en: "<i class='fa-solid fa-check'></i> Website up to 7 pages" },
+            "srv-p2-l2": { pl: "<i class='fa-solid fa-check'></i> Autorski Design System", en: "<i class='fa-solid fa-check'></i> Custom Design System" },
+            "srv-p2-l3": { pl: "<i class='fa-solid fa-check'></i> Panel zarządzania treścią CMS", en: "<i class='fa-solid fa-check'></i> CMS Content Management" },
+            "srv-p2-l4": { pl: "<i class='fa-solid fa-check'></i> Integracja Social Media & Maps", en: "<i class='fa-solid fa-check'></i> Social Media & Maps integration" },
+            "srv-p2-l5": { pl: "<i class='fa-solid fa-check'></i> SEO Score 95+ (Gwarantowane)", en: "<i class='fa-solid fa-check'></i> SEO Score 95+ (Guaranteed)" },
+
+            "srv-p3-tag": { pl: "E-Commerce & Apps", en: "E-Commerce & Apps" },
+            "srv-p3-desc": { pl: "Kompletny system sprzedaży online dla marek, które nie uznają kompromisów.", en: "A complete online sales system for brands that do not accept compromises." },
+            "srv-p3-mod": { pl: "Kluczowe moduły:", en: "Key modules:" },
+            "srv-p3-btn": { pl: "Zaprojektuj mój sklep", en: "Design my store" },
+            "srv-p3-l1": { pl: "<i class='fa-solid fa-check'></i> System sklepowy (nieograniczone produkty)", en: "<i class='fa-solid fa-check'></i> Store system (unlimited products)" },
+            "srv-p3-l2": { pl: "<i class='fa-solid fa-check'></i> Płatności automatyczne (BLIK, Karty)", en: "<i class='fa-solid fa-check'></i> Auto payments (Stripe, Cards)" },
+            "srv-p3-l3": { pl: "<i class='fa-solid fa-check'></i> Zaawansowana analityka ruchu", en: "<i class='fa-solid fa-check'></i> Advanced traffic analytics" },
+            "srv-p3-l4": { pl: "<i class='fa-solid fa-check'></i> Support techniczny 24/7 (6 msc)", en: "<i class='fa-solid fa-check'></i> 24/7 Technical Support (6 mos)" },
+            "srv-free": { pl: "<i class='fa-solid fa-check'></i> Hosting i Domena (3 lata FREE)", en: "<i class='fa-solid fa-check'></i> Hosting & Domain (3 years FREE)" },
+
+            "srv-bonus-t": { pl: "Hosting, Domena i Obsługa na 3 lata – GRATIS!", en: "Hosting, Domain & Maintenance for 3 years – FREE!" },
+            "srv-bonus-d": { pl: "Zdejmuję z Ciebie ciężar opłat technicznych. Przez pierwsze 36 miesięcy zapewniam szybki serwer, bezpieczny certyfikat SSL oraz utrzymanie domeny całkowicie bezpłatnie. <b>Żadnych ukrytych kosztów.</b>", en: "I take the burden of technical fees off you. For the first 36 months, I provide a fast server, a secure SSL certificate, and domain maintenance completely free of charge. <b>No hidden costs.</b>" },
+
+            // KONTAKT I FOOTER
+            "cnt-tag": { pl: "05 // Kontakt", en: "05 // Contact" },
+            "cnt-desc": { pl: "Masz projekt, który wymaga wybitnej egzekucji? Szukasz partnera, który przełoży Twoją wizję na język kodu premium? Napisz bezpośrednio.", en: "Do you have a project that requires outstanding execution? Looking for a partner to translate your vision into premium code? Write directly." },
+            "cnt-reply": { pl: "Odpowiadam zazwyczaj w ciągu 24 godzin.", en: "I usually reply within 24 hours." },
+            "cnt-lbl-name": { pl: "Twoje Imię", en: "Your Name" },
+            "cnt-lbl-email": { pl: "Adres E-mail", en: "Email Address" },
+            "cnt-lbl-msg": { pl: "W czym mogę pomóc?", en: "How can I help you?" },
+            "cnt-btn": { pl: "Wyślij wiadomość <i class='fa-solid fa-paper-plane' style='margin-left: 10px; font-size: 0.8rem;'></i>", en: "Send message <i class='fa-solid fa-paper-plane' style='margin-left: 10px; font-size: 0.8rem;'></i>" },
+            
+            // Atrybuty Placeholder
+            "ph-name": { pl: "np. Jan Kowalski", en: "e.g. John Doe" },
+            "ph-email": { pl: "twoj@mail.pl", en: "your@email.com" },
+            "ph-msg": { pl: "Opisz swój projekt, cele i oczekiwania...", en: "Describe your project, goals, and expectations..." },
+
+            "ftr-copy": { pl: "Built with Mathematics & Physics. <br> © 2026 Szymon Górecki. Wszystkie prawa zastrzeżone.", en: "Built with Mathematics & Physics. <br> © 2026 Szymon Górecki. All rights reserved." },
+            "ftr-priv": { pl: "Polityka Prywatności", en: "Privacy Policy" },
+            "ftr-status": { pl: "Status: Przyjmuję nowe zlecenia", en: "Status: Accepting new projects" }
+        };
+
+        class TranslatorEngine {
+            constructor() {
+                this.lang = localStorage.getItem('gsweb_lang') || 'pl';
+                this.btn = document.getElementById('lang-toggle');
+                if(this.btn) this.init();
+            }
+
+            init() {
+                this.updateUI();
+                this.setInitialText();
+                this.btn.addEventListener('click', () => this.toggle());
+            }
+
+            toggle() {
+                this.lang = this.lang === 'pl' ? 'en' : 'pl';
+                localStorage.setItem('gsweb_lang', this.lang);
+                this.updateUI();
+
+                const els = document.querySelectorAll('[data-i18n], [data-i18n-ph]');
+                gsap.to(els, {
+                    opacity: 0, y: -5, duration: 0.3, stagger: 0.005, ease: "power2.in",
+                    onComplete: () => {
+                        this.setInitialText();
+                        gsap.to(els, { 
+                            opacity: 1, y: 0, duration: 0.4, stagger: 0.005, ease: "power2.out",
+                            onComplete: () => ScrollTrigger.refresh()
+                        });
+                    }
+                });
+            }
+
+            setInitialText() {
+                // Tłumaczenie zwykłego tekstu
+                document.querySelectorAll('[data-i18n]').forEach(el => {
+                    const k = el.getAttribute('data-i18n');
+                    if(i18nDict[k] && i18nDict[k][this.lang]) el.innerHTML = i18nDict[k][this.lang];
+                });
+                // Tłumaczenie placeholderów w formularzu
+                document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+                    const k = el.getAttribute('data-i18n-ph');
+                    if(i18nDict[k] && i18nDict[k][this.lang]) el.placeholder = i18nDict[k][this.lang];
+                });
+            }
+
+            updateUI() {
+                const pl = this.btn.querySelector('.lang-pl');
+                const en = this.btn.querySelector('.lang-en');
+                if (this.lang === 'pl') { pl.classList.add('active'); en.classList.remove('active'); } 
+                else { en.classList.add('active'); pl.classList.remove('active'); }
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', () => new TranslatorEngine());
         /**
          * 14. SAFARI & IOS CORE FIXES
          * Rozwiązuje problemy z renderowaniem "szkła" na urządzeniach Apple.
